@@ -3,6 +3,7 @@ package com.t3h.model;
 import com.t3h.gui.TankFrame;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class Tank {
     public static final int LEFT = 0;
@@ -14,7 +15,7 @@ public abstract class Tank {
     protected int y;
     protected Image[] images;
     protected int orient;
-    protected int speed = 5;
+    protected int speed = 1;
 
     public Tank(int x, int y, int orient) {
         this.x = x;
@@ -44,12 +45,45 @@ public abstract class Tank {
                 break;
         }
         if (x <= 0 || x >= TankFrame.W_FRAME -
-                images[orient].getWidth(null) - 10
-                || y <= 0
+                images[orient].getWidth(null) - 10) {
+            x = xR;
+        }
+        if (y <= 0
                 || y >= TankFrame.H_FRAME -
                 images[orient].getHeight(null) - 30) {
-            x = xR;
-            y =  yR;
+            y = yR;
         }
+    }
+
+    private long t;
+    public void fire(ArrayList<Bullet> arr) {
+        long T = System.currentTimeMillis();
+        if (T - t < 500) {
+            return;
+        }
+        t = T;
+        int xB = x + images[orient].getWidth(null) / 2;
+        int yB = y + images[orient].getHeight(null) / 2;
+        Bullet b = new Bullet(xB, yB, orient);
+        arr.add(b);
+    }
+
+    public Rectangle getRect() {
+        Rectangle rect = new Rectangle(x, y,
+                images[orient].getWidth(null),
+                images[orient].getHeight(null));
+        return rect;
+    }
+
+    public boolean checkDie(ArrayList<Bullet> arr) {
+        for (int i = 0; i < arr.size(); i++) {
+            Rectangle rect = getRect()
+                    .intersection(arr.get(i).getRect());
+            if (rect.isEmpty() == false) {
+                arr.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 }

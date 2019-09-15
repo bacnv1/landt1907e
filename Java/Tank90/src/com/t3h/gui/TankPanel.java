@@ -8,14 +8,17 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class TankPanel extends JPanel implements KeyListener {
+public class TankPanel extends JPanel implements KeyListener, Runnable {
     private GameManager manager = new GameManager();
+    private boolean[] flags = new boolean[256];
 
     public TankPanel() {
         setBackground(Color.BLACK);
         manager.initGame();
         setFocusable(true);
         addKeyListener(this);
+        Thread t = new Thread(this);
+        t.start();
     }
 
     @Override
@@ -32,25 +35,50 @@ public class TankPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT:
-                manager.playerMove(Tank.LEFT);
-                break;
-            case KeyEvent.VK_RIGHT:
-                manager.playerMove(Tank.RIGHT);
-                break;
-            case KeyEvent.VK_UP:
-                manager.playerMove(Tank.UP);
-                break;
-            case KeyEvent.VK_DOWN:
-                manager.playerMove(Tank.DOWN);
-                break;
-        }
-        repaint();
+        flags[e.getKeyCode()] = true;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        flags[e.getKeyCode()] = false;
+    }
 
+    @Override
+    public void run() {
+        while (true) {
+            if (flags[KeyEvent.VK_LEFT]) {
+                manager.playerMove(Tank.LEFT);
+            } else if (flags[KeyEvent.VK_RIGHT]) {
+                manager.playerMove(Tank.RIGHT);
+            } else if (flags[KeyEvent.VK_UP]) {
+                manager.playerMove(Tank.UP);
+            } else if (flags[KeyEvent.VK_DOWN]) {
+                manager.playerMove(Tank.DOWN);
+            }
+            if (flags[KeyEvent.VK_SPACE]) {
+                manager.playerFire();
+            }
+            boolean isDie = manager.AI();
+            if (isDie) {
+                int result = JOptionPane.showConfirmDialog(
+                        null,
+                        "Do you wan to replay",
+                        "Game over",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.YES_OPTION) {
+                    flags = new boolean[256];
+                    manager.initGame();
+                }else {
+                    System.exit(0);
+                }
+            }
+            repaint();
+            try {
+                Thread.sleep(7);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
