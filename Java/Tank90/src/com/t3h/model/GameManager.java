@@ -10,12 +10,14 @@ public class GameManager {
     private ArrayList<Boss> arrBoss;
     private ArrayList<Bullet> arrBulletPlayer;
     private ArrayList<Bullet> arrBulletBoss;
+    private ArrayList<Map> arrMap;
 
     public void initGame() {
+        arrMap = MapManager.readMap("map1.txt");
         arrBulletBoss = new ArrayList<>();
         arrBulletPlayer = new ArrayList<>();
 
-        player = new Player(200, 200, 3);
+        player = new Player(170, 460, 3);
         arrBoss = new ArrayList<>();
         generateBoss();
     }
@@ -36,6 +38,9 @@ public class GameManager {
         for (Boss b: arrBoss) {
             b.draw(g2d);
         }
+        for (Map m: arrMap) {
+            m.draw(g2d);
+        }
     }
 
     private void drawBullet(Graphics2D g2d, ArrayList<Bullet> arr) {
@@ -46,17 +51,46 @@ public class GameManager {
 
     public void playerMove(int newOrient) {
         player.changeOrient(newOrient);
-        player.move();
+        player.move(arrMap);
     }
 
     public void playerFire() {
         player.fire(arrBulletPlayer);
     }
 
+    private boolean checkBulletToMap(ArrayList<Bullet> arr) {
+        for (int i = arrMap.size() - 1; i >= 0; i--) {
+            int bit = arrMap.get(i).getBit();
+            if (bit == 4 || bit == 5) {
+                continue;
+            }
+            for (int j = 0; j < arr.size(); j++) {
+                Rectangle rect = arrMap.get(i).getRect()
+                        .intersection(arr.get(j).getRect());
+                if (rect.isEmpty() == false) {
+                    switch (bit){
+                        case 1:
+                            arrMap.remove(i);
+                            arr.remove(j);
+                            break;
+                        case 2:
+                            arr.remove(j);
+                            break;
+                        case 3:
+                            arr.remove(j);
+                            return true;
+                    }
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean AI() {
         for (int i = arrBoss.size() - 1; i >= 0; i--) {
             arrBoss.get(i).generateOrient();
-            arrBoss.get(i).move();
+            arrBoss.get(i).move(arrMap);
             arrBoss.get(i).fire(arrBulletBoss);
             boolean die = arrBoss.get(i).checkDie(arrBulletPlayer);
             if (die) {
@@ -68,7 +102,10 @@ public class GameManager {
         }
         moveBullet(arrBulletPlayer);
         moveBullet(arrBulletBoss);
-        return player.checkDie(arrBulletBoss);
+
+        return player.checkDie(arrBulletBoss)
+                || checkBulletToMap(arrBulletBoss)
+                || checkBulletToMap(arrBulletPlayer);
     }
 
     private void moveBullet(ArrayList<Bullet> arr) {

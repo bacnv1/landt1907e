@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TankFrame extends JFrame {
-    public static final int W_FRAME = 800;
-    public static final int H_FRAME = 600;
+    public static final int W_FRAME = 510;
+    public static final int H_FRAME = 530;
 
     public TankFrame() {
         setTitle("Tank 90");
