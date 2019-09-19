@@ -1,0 +1,2 @@
+888,468,50,50,3,/IMAGE/ghost.png
+4270,468,50,50,3,/IMAGE/ghost.png

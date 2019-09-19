@@ -2,7 +2,9 @@ package com.t3h.gui;
 
 import com.t3h.model.GameManager;
 import com.t3h.model.Tank;
+import com.t3h.utils.SoundLoader;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -11,6 +13,7 @@ import java.awt.event.KeyListener;
 public class TankPanel extends JPanel implements KeyListener, Runnable {
     private GameManager manager = new GameManager();
     private boolean[] flags = new boolean[256];
+    private Clip clip;
 
     public TankPanel() {
         setBackground(Color.BLACK);
@@ -43,6 +46,23 @@ public class TankPanel extends JPanel implements KeyListener, Runnable {
         flags[e.getKeyCode()] = false;
     }
 
+    private void checkSoundMove() {
+        if (flags[KeyEvent.VK_LEFT]
+                || flags[KeyEvent.VK_RIGHT]
+                || flags[KeyEvent.VK_UP]
+                || flags[KeyEvent.VK_DOWN]) {
+            if (clip == null) {
+                clip = SoundLoader.play("move.wav");
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+            }
+        }else {
+            if (clip != null) {
+                clip.stop();
+                clip = null;
+            }
+        }
+    }
+
     @Override
     public void run() {
         while (true) {
@@ -58,6 +78,7 @@ public class TankPanel extends JPanel implements KeyListener, Runnable {
             if (flags[KeyEvent.VK_SPACE]) {
                 manager.playerFire();
             }
+            checkSoundMove();
             boolean isDie = manager.AI();
             if (isDie) {
                 int result = JOptionPane.showConfirmDialog(

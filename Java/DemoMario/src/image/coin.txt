@@ -1,0 +1,15 @@
+840,360,40,40,3,/IMAGE/question_box.png
+920,360,40,40,3,/IMAGE/question_box.png
+3108,360,40,40,3,/IMAGE/question_box.png
+3710,200,40,40,3,/IMAGE/question_box.png
+4020,360,40,40,3,/IMAGE/question_box.png
+4220,360,40,40,3,/IMAGE/question_box.png
+4340,360,40,40,3,/IMAGE/question_box.png
+4460,360,40,40,3,/IMAGE/question_box.png
+4700,360,40,40,3,/IMAGE/question_box.png
+5140,200,40,40,3,/IMAGE/question_box.png
+5180,200,40,40,3,/IMAGE/question_box.png
+6770,360,40,40,3,/IMAGE/question_box.png
+6677,-530,30,30,3,/IMAGE/coin.png
+6707,-500,30,30,3,/IMAGE/coin.png
+6737,-470,30,30,3,/IMAGE/coin.png

@@ -1,0 +1,2 @@
+880,200,40,40,3,/IMAGE/question_box.png
+4340,200,40,40,3,/IMAGE/question_box.png

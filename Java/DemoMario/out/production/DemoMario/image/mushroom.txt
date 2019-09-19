@@ -1,0 +1,2 @@
+880,200,40,40,4,/IMAGE/mushroom.png
+4340,200,40,40,3,/IMAGE/null_box.png

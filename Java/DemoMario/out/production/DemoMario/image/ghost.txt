@@ -1,0 +1,16 @@
+830,478,40,40,3,/IMAGE/ghost.png
+1590,478,40,40,3,/IMAGE/ghost.png
+2030,478,40,40,3,/IMAGE/ghost.png
+2090,478,40,40,3,/IMAGE/ghost.png
+3188,160,40,40,3,/IMAGE/ghost.png
+3266,160,40,40,3,/IMAGE/ghost.png
+3865,478,40,40,3,/IMAGE/ghost.png
+3920,478,40,40,3,/IMAGE/ghost.png
+4539,478,40,40,3,/IMAGE/ghost.png
+4600,478,40,40,3,/IMAGE/ghost.png
+4939,478,40,40,3,/IMAGE/ghost.png
+5000,478,40,40,3,/IMAGE/ghost.png
+5100,478,40,40,3,/IMAGE/ghost.png
+5160,478,40,40,3,/IMAGE/ghost.png
+6930,478,40,40,3,/IMAGE/ghost.png
+6990,478,40,40,3,/IMAGE/ghost.png

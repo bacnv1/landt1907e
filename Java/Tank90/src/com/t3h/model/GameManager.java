@@ -1,6 +1,7 @@
 package com.t3h.model;
 
 import com.t3h.gui.TankFrame;
+import com.t3h.utils.SoundLoader;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class GameManager {
     private ArrayList<Map> arrMap;
 
     public void initGame() {
+        SoundLoader.play("enter_game.wav");
         arrMap = MapManager.readMap("map1.txt");
         arrBulletBoss = new ArrayList<>();
         arrBulletPlayer = new ArrayList<>();
@@ -68,6 +70,7 @@ public class GameManager {
                 Rectangle rect = arrMap.get(i).getRect()
                         .intersection(arr.get(j).getRect());
                 if (rect.isEmpty() == false) {
+                    SoundLoader.play("explosion.wav");
                     switch (bit){
                         case 1:
                             arrMap.remove(i);
