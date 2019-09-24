@@ -63,7 +63,7 @@ public class MarioPanel extends JPanel implements KeyListener, Runnable {
             manager.AI();
             repaint();
             try {
-                Thread.sleep(5);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

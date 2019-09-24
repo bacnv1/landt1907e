@@ -10,9 +10,14 @@ import java.util.ArrayList;
 public class GameManager {
     private Mario mario;
     private ArrayList<Map> arrMap;
+    private int level = 1;
     public void initGame() {
-        arrMap = MapManager.readMap("map1.txt");
+        readMap();
         mario = new Mario(100, 300);
+    }
+
+    private void readMap() {
+        arrMap = MapManager.readMap("map"+level+".txt");
     }
 
     public void draw(Graphics2D g2d) {
@@ -54,6 +59,11 @@ public class GameManager {
     }
 
     public void AI() {
+        if (mario.getX() >= MarioFrame.W_FRAME - 200) {
+            mario = new Mario(100, 300);
+            level++;
+            readMap();
+        }
         mario.fall(arrMap);
     }
 }
