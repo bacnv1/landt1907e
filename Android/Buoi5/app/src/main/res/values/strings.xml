@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Buoi5</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="ok">Ok</string>
+</resources>
