@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Buổi 6</string>
+    <string name="alpha">Độ Mờ</string>
+    <string name="translate">Di chuyển</string>
+    <string name="scale">Phóng</string>
+    <string name="rotate">Xoay</string>
+    <string name="set">Tổng Hợp</string>
+</resources>

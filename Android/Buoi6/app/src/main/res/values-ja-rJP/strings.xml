@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ユニット6</string>
+    <string name="alpha">アルファ</string>
+    <string name="translate">翻訳する</string>
+    <string name="scale">規模</string>
+    <string name="rotate">回転</string>
+    <string name="set">セットする</string>
+</resources>
