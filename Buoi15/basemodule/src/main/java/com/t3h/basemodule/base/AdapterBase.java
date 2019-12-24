@@ -18,11 +18,16 @@ public abstract class AdapterBase<T extends BaseModels> extends RecyclerView.Ada
     private ArrayList<T> data;
     private LayoutInflater inflater;
     private int resLayout;
+    protected AdapterBaseListener listener;
 
     public AdapterBase(LayoutInflater inflater,
                        @LayoutRes int resLayout) {
         this.inflater = inflater;
         this.resLayout = resLayout;
+    }
+
+    public void setListener(AdapterBaseListener listener) {
+        this.listener = listener;
     }
 
     public ArrayList<T> getData() {

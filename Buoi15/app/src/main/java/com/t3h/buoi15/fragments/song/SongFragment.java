@@ -1,6 +1,7 @@
-package com.t3h.buoi15.fragments;
+package com.t3h.buoi15.fragments.song;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -12,7 +13,7 @@ import com.t3h.buoi15.data.SystemData;
 import com.t3h.buoi15.databinding.FragmentSongBinding;
 import com.t3h.buoi15.models.Song;
 
-public class SongFragment extends FragmentBase<FragmentSongBinding> {
+public class SongFragment extends FragmentBase<FragmentSongBinding> implements SongItemListener{
 
     private AdapterBase<Song> adapter;
     private SystemData data;
@@ -29,6 +30,12 @@ public class SongFragment extends FragmentBase<FragmentSongBinding> {
                 R.layout.item_song);
         data = new SystemData(getContext());
         adapter.setData(data.readData());
+        adapter.setListener(this);
         binding.lvSong.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemSongClicked(Song item) {
+        Toast.makeText(getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

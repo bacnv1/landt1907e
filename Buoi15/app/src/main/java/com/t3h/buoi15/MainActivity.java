@@ -1,4 +1,6 @@
 package com.t3h.buoi15;
+
+import android.Manifest;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -8,15 +10,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.t3h.basemodule.base.ActivityBase;
 import com.t3h.basemodule.base.FragmentBase;
 import com.t3h.buoi15.databinding.ActivityMainBinding;
-import com.t3h.buoi15.fragments.AlbumFragment;
-import com.t3h.buoi15.fragments.ArtistFragment;
-import com.t3h.buoi15.fragments.SongFragment;
+import com.t3h.buoi15.fragments.album.AlbumFragment;
+import com.t3h.buoi15.fragments.artist.ArtistFragment;
+import com.t3h.buoi15.fragments.song.SongFragment;
 
 public class MainActivity extends ActivityBase<ActivityMainBinding> implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private SongFragment fmSong = new SongFragment();
     private AlbumFragment fmAlbum = new AlbumFragment();
     private ArtistFragment fmArtist = new ArtistFragment();
+
 
     @Override
     protected int getLayoutId() {
@@ -25,8 +28,23 @@ public class MainActivity extends ActivityBase<ActivityMainBinding> implements B
 
     @Override
     protected void init() {
-        initFragment();
-        binding.nav.setOnNavigationItemSelectedListener(this);
+        doRequestPermission(
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                new RequestPermissionCallback() {
+                    @Override
+                    public void onGranted() {
+                        initFragment();
+                        binding.nav.setOnNavigationItemSelectedListener(
+                                MainActivity.this
+                        );
+                    }
+
+                    @Override
+                    public void onDenied() {
+                        finish();
+                    }
+                }
+        );
     }
 
     private void initFragment() {

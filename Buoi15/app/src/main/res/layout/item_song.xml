@@ -5,12 +5,16 @@
         <variable
             name="item"
             type="com.t3h.buoi15.models.Song" />
+        <variable
+            name="listener"
+            type="com.t3h.buoi15.fragments.song.SongItemListener" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:onClick="@{v -> listener.onItemSongClicked(item)}"
         android:orientation="horizontal">
         <ImageView
             android:src="@drawable/ic_music"

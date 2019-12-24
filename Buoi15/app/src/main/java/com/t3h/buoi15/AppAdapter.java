@@ -17,6 +17,9 @@ public class AppAdapter<T extends BaseModels> extends AdapterBase<T> {
     public void onBindViewHolder(@NonNull AdapterBase.HolderBase holder, int position) {
         T t = getData().get(position);
         holder.binding.setVariable(BR.item, t);
+        if (listener != null) {
+            holder.binding.setVariable(BR.listener, listener);
+        }
         holder.binding.executePendingBindings();
     }
 }

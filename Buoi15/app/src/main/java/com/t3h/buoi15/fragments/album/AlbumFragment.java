@@ -1,4 +1,4 @@
-package com.t3h.buoi15.fragments;
+package com.t3h.buoi15.fragments.album;
 
 import com.t3h.basemodule.base.FragmentBase;
 import com.t3h.buoi15.R;
