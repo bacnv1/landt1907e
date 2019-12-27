@@ -1,6 +1,10 @@
 package com.t3h.buoi15;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -13,13 +17,14 @@ import com.t3h.buoi15.databinding.ActivityMainBinding;
 import com.t3h.buoi15.fragments.album.AlbumFragment;
 import com.t3h.buoi15.fragments.artist.ArtistFragment;
 import com.t3h.buoi15.fragments.song.SongFragment;
+import com.t3h.buoi15.service.MP3Service;
 
 public class MainActivity extends ActivityBase<ActivityMainBinding> implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private SongFragment fmSong = new SongFragment();
     private AlbumFragment fmAlbum = new AlbumFragment();
     private ArtistFragment fmArtist = new ArtistFragment();
-
+    private MP3Service service;
 
     @Override
     protected int getLayoutId() {
@@ -33,10 +38,11 @@ public class MainActivity extends ActivityBase<ActivityMainBinding> implements B
                 new RequestPermissionCallback() {
                     @Override
                     public void onGranted() {
-                        initFragment();
-                        binding.nav.setOnNavigationItemSelectedListener(
-                                MainActivity.this
+                        Intent intent = new Intent(
+                                MainActivity.this,
+                                MP3Service.class
                         );
+                        bindService(intent, connection, BIND_AUTO_CREATE);
                     }
 
                     @Override
@@ -46,6 +52,23 @@ public class MainActivity extends ActivityBase<ActivityMainBinding> implements B
                 }
         );
     }
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            MP3Service.MP3Binder binder = (MP3Service.MP3Binder) iBinder;
+            service = binder.getService();
+            initFragment();
+            binding.nav.setOnNavigationItemSelectedListener(
+                    MainActivity.this
+            );
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
 
     private void initFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -80,5 +103,15 @@ public class MainActivity extends ActivityBase<ActivityMainBinding> implements B
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(connection);
+    }
+
+    public MP3Service getService() {
+        return service;
     }
 }
