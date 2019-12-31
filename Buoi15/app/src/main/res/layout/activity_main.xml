@@ -9,9 +9,15 @@
 
         <FrameLayout
             android:id="@+id/container"
-            android:layout_above="@+id/nav"
+            android:layout_above="@+id/controller"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <com.t3h.buoi15.views.ControllerView
+            android:id="@+id/controller"
+            android:layout_above="@+id/nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav"

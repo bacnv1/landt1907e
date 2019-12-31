@@ -13,10 +13,14 @@ public class MediaController implements MediaPlayer.OnCompletionListener {
     private Context context;
     private ArrayList<Song> arrSong;
     private int index;
+    private MediaListener listener;
 
-    public MediaController(Context context, ArrayList<Song> arrSong) {
+    public MediaController(Context context, ArrayList<Song> arrSong,
+                           MediaListener listener) {
         this.context = context;
         this.arrSong = arrSong;
+        this.listener = listener;
+
     }
 
     public void create(int index) {
@@ -33,6 +37,7 @@ public class MediaController implements MediaPlayer.OnCompletionListener {
     public void start() {
         if (player != null) {
             player.start();
+            listener.onStarted();
         }
     }
 
@@ -45,6 +50,7 @@ public class MediaController implements MediaPlayer.OnCompletionListener {
     public void pause() {
         if (player != null) {
             player.pause();
+            listener.onPaused();
         }
     }
 

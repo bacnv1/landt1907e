@@ -14,12 +14,13 @@ import com.t3h.buoi15.controller.MediaController;
 import com.t3h.buoi15.data.SystemData;
 import com.t3h.buoi15.databinding.FragmentSongBinding;
 import com.t3h.buoi15.models.Song;
+import com.t3h.buoi15.service.MP3Service;
 
 public class SongFragment extends FragmentBase<FragmentSongBinding> implements SongItemListener{
 
     private AdapterBase<Song> adapter;
     private SystemData data;
-    private MediaController controller;
+    private MP3Service service;
 
     @Override
     protected int getLayoutId() {
@@ -37,13 +38,13 @@ public class SongFragment extends FragmentBase<FragmentSongBinding> implements S
         binding.lvSong.setAdapter(adapter);
 
         MainActivity act = (MainActivity) getActivity();
-        act.getService().setSongData(adapter.getData());
-        controller = act.getService().getController();
+        service = act.getService();
     }
 
     @Override
     public void onItemSongClicked(Song item) {
         int index = adapter.getData().indexOf(item);
-        controller.create(index);
+        service.setSongData(adapter.getData());
+        service.getController().create(index);
     }
 }
