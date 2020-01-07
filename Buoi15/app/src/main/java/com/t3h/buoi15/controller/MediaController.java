@@ -54,10 +54,12 @@ public class MediaController implements MediaPlayer.OnCompletionListener {
         }
     }
 
+
     public void release() {
         if (player != null) {
             player.release();
         }
+        player = null;
     }
 
     public void seek(int position) {
@@ -81,6 +83,10 @@ public class MediaController implements MediaPlayer.OnCompletionListener {
 
     public int getCurrentPosition() {
         return player == null ? 0 : player.getCurrentPosition();
+    }
+
+    public boolean isPlaying() {
+        return player == null ? false : player.isPlaying();
     }
 
     public String getName() {
