@@ -1,0 +1,39 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext {
+        def lifecycle_version = "2.2.0"
+        def arch_version = "2.1.0"
+        viewModel = "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+        liveData = "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+        rxAndroid = 'io.reactivex.rxjava3:rxandroid:3.0.0'
+        rxJava = 'io.reactivex.rxjava3:rxjava:3.0.0'
+    }
+    
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.2'
+        
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
