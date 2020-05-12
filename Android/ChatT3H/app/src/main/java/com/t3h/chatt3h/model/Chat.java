@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.t3h.basemodule.models.BaseModels;
 
 public class Chat extends BaseModels {
-    @SerializedName("email")
+    @SerializedName("name")
     private String email;
     @SerializedName("content")
     private String content;

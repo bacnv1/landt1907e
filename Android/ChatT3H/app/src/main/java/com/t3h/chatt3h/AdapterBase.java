@@ -1,7 +1,6 @@
-package com.t3h.basemodule.base;
+package com.t3h.chatt3h;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
@@ -10,12 +9,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.t3h.basemodule.base.AdapterBaseListener;
 import com.t3h.basemodule.models.BaseModels;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class AdapterBase<T extends BaseModels> extends RecyclerView.Adapter<AdapterBase.HolderBase>{
-    private ArrayList<T> data;
+public class AdapterBase<T extends BaseModels> extends RecyclerView.Adapter<AdapterBase.HolderBase>{
+    private List<T> data;
     private LayoutInflater inflater;
     private int resLayout;
     protected AdapterBaseListener listener;
@@ -30,11 +31,11 @@ public abstract class AdapterBase<T extends BaseModels> extends RecyclerView.Ada
         this.listener = listener;
     }
 
-    public ArrayList<T> getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(ArrayList<T> data) {
+    public void setData(List<T> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -45,6 +46,11 @@ public abstract class AdapterBase<T extends BaseModels> extends RecyclerView.Ada
         ViewDataBinding binding = DataBindingUtil.inflate(inflater,
                 resLayout, parent, false);
         return new HolderBase(binding);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AdapterBase.HolderBase holder, int position) {
+        holder.binding.setVariable(BR.item, data.get(position));
     }
 
     @Override

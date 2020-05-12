@@ -42,4 +42,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation 'com.squareup.retrofit2:retrofit:+'
     implementation 'com.squareup.retrofit2:converter-gson:+'
+
+    implementation 'com.google.android.material:material:+'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 }
